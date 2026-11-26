@@ -1,5 +1,5 @@
 // Movimento da página (mesma base do site da Bravuno): carregamento, entrada do hero, rolagem suave (Lenis),
-// tour "da composição ao palco" fixado na tela (GSAP ScrollTrigger) e cursor de brasa.
+// tour "da composição ao palco" em carrossel e cursor de brasa.
 // Sem as bibliotecas ou com "reduzir movimento" ligado, a página funciona estática.
 (function () {
   const raiz = document.documentElement;
@@ -94,6 +94,80 @@
 
   }
 
+  // ---------- tour "da composição ao palco": carrossel ----------
+  // Setas, abas, setas do teclado e deslizar no celular. Avança sozinho a cada 7 s enquanto está
+  // na tela; para de vez assim que a pessoa mexe nele (e nunca roda com "reduzir movimento").
+  (function () {
+    const tour = document.querySelector('.tour');
+    if (!tour) return;
+    raiz.classList.add('tour-ativo');
+    const capitulos = [...tour.querySelectorAll('.chapter')];
+    const abas = [...tour.querySelectorAll('.tour-tabs button')];
+    const agora = tour.querySelector('.tour-now');
+    const anterior = tour.querySelector('.tour-prev');
+    const proxima = tour.querySelector('.tour-next');
+    const marca = tour.querySelector('.tour-mark');
+    const halo = tour.querySelector('.tour-halo');
+    const TEMPO = 7000;
+    const total = capitulos.length;
+    let atual = 0, timer = null, automatico = !reduzir, visivel = false;
+
+    capitulos.forEach((c, i) => { c.id = 'etapa-' + (i + 1); c.setAttribute('role', 'tabpanel'); });
+    abas.forEach((b, i) => b.setAttribute('aria-controls', 'etapa-' + (i + 1)));
+    tour.style.setProperty('--tempo', TEMPO + 'ms');
+
+    function ir(i) {
+      i = (i + total) % total;
+      capitulos.forEach((c, k) => {
+        c.classList.toggle('is-active', k === i);
+        c.classList.toggle('antes', k < i);
+        c.setAttribute('aria-hidden', k === i ? 'false' : 'true');
+      });
+      abas.forEach((b, k) => { b.setAttribute('aria-selected', k === i ? 'true' : 'false'); b.tabIndex = k === i ? 0 : -1; });
+      // reinicia a barra de tempo da aba ativa
+      const barra = abas[i].querySelector('i'); barra.style.animation = 'none'; void barra.offsetWidth; barra.style.animation = '';
+      agora.textContent = String(i + 1).padStart(2, '0');
+      // a chama cresce e acende a cada etapa
+      const p = i / (total - 1);
+      marca.style.transform = `scale(${0.82 + p * 0.28})`;
+      marca.style.filter = `drop-shadow(0 30px 60px rgba(0,0,0,.8)) drop-shadow(0 0 ${20 + p * 70}px rgba(238,204,37,${0.15 + p * 0.45})) brightness(${0.65 + p * 0.5})`;
+      halo.style.opacity = 0.5 + p * 0.5; halo.style.transform = `scale(${0.85 + p * 0.3})`;
+      atual = i;
+      agendar();
+    }
+    function agendar() {
+      clearTimeout(timer);
+      tour.classList.toggle('auto', automatico && visivel);
+      if (automatico && visivel) timer = setTimeout(() => ir(atual + 1), TEMPO);
+    }
+    function mexeu() { automatico = false; agendar(); }
+
+    anterior.addEventListener('click', () => { mexeu(); ir(atual - 1); });
+    proxima.addEventListener('click', () => { mexeu(); ir(atual + 1); });
+    abas.forEach((b, i) => b.addEventListener('click', () => { mexeu(); ir(i); }));
+    tour.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight') { mexeu(); ir(atual + 1); if (abas.includes(document.activeElement)) abas[atual].focus(); }
+      if (e.key === 'ArrowLeft') { mexeu(); ir(atual - 1); if (abas.includes(document.activeElement)) abas[atual].focus(); }
+    });
+    // deslizar com o dedo (só gesto horizontal claro)
+    let x0 = null, y0 = null;
+    const lista = tour.querySelector('.chapters');
+    lista.addEventListener('touchstart', (e) => { x0 = e.touches[0].clientX; y0 = e.touches[0].clientY; }, { passive: true });
+    lista.addEventListener('touchend', (e) => {
+      if (x0 === null) return;
+      const dx = e.changedTouches[0].clientX - x0, dy = e.changedTouches[0].clientY - y0;
+      if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy) * 1.4) { mexeu(); ir(atual + (dx < 0 ? 1 : -1)); }
+      x0 = null;
+    });
+    // pausa enquanto o mouse está em cima; só avança sozinho quando a seção está na tela
+    tour.addEventListener('mouseenter', () => { clearTimeout(timer); tour.classList.remove('auto'); });
+    tour.addEventListener('mouseleave', agendar);
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(([e]) => { visivel = e.isIntersecting; agendar(); }, { threshold: 0.5 }).observe(tour);
+    }
+    ir(0);
+  })();
+
   if (!temGsap || reduzir) return;
   gsap.registerPlugin(ScrollTrigger);
 
@@ -113,37 +187,6 @@
 
   // ---------- hero: a chama sobe devagar enquanto a página rola ----------
   gsap.to('.hero-art', { yPercent: -18, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true } });
-
-  // ---------- tour fixado: cada trecho da rolagem acende uma etapa ----------
-  raiz.classList.add('tour-ativo');
-  const capitulos = [...document.querySelectorAll('.chapter')];
-  const agora = document.querySelector('.tour-now');
-  const barra = document.querySelector('.tour-progress i');
-  const marca = document.querySelector('.tour-mark');
-  let atual = 0;
-  ScrollTrigger.create({
-    trigger: '.tour-stage',
-    start: 'top top',
-    end: () => '+=' + window.innerHeight * capitulos.length * 0.85,
-    pin: true,
-    scrub: true,
-    onUpdate(st) {
-      const p = st.progress;
-      const i = Math.min(capitulos.length - 1, Math.floor(p * capitulos.length));
-      if (i !== atual) {
-        capitulos[atual].classList.remove('is-active');
-        capitulos[i].classList.add('is-active');
-        atual = i;
-        agora.textContent = String(i + 1).padStart(2, '0');
-      }
-      barra.style.transform = `scaleX(${(i + 1) / capitulos.length})`;
-      // a chama cresce e acende conforme a carreira avança
-      gsap.set(marca, {
-        scale: 0.8 + p * 0.3,
-        filter: `drop-shadow(0 30px 60px rgba(0,0,0,.8)) drop-shadow(0 0 ${20 + p * 70}px rgba(238,204,37,${0.15 + p * 0.45})) brightness(${0.6 + p * 0.55})`,
-      });
-    },
-  });
 
   // ---------- títulos entram uma vez ----------
   gsap.utils.toArray('.section-title, .reach-number, .final-title').forEach((el) => {

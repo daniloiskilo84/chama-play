@@ -210,41 +210,72 @@ main > section + section { border-top: 1px solid var(--linha); }
 @keyframes pulso { 0%, 100% { opacity: 0.25; transform: scaleY(0.6); transform-origin: top; } 50% { opacity: 1; transform: scaleY(1); } }
 .js .hero-in { opacity: 0; transform: translateY(26px); }
 
-/* ---------- tour "da composição ao palco" ---------- */
-.tour { padding: 0 !important; }
+/* ---------- tour "da composição ao palco": carrossel com setas, abas, teclado e deslizar ---------- */
 .tour-stage {
-  position: relative; min-height: 100vh; min-height: 100svh;
+  position: relative;
   display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); grid-template-rows: auto 1fr auto;
-  gap: 0 clamp(24px, 4vw, 64px); padding: clamp(100px, 12vh, 140px) var(--lateral) 56px;
+  gap: 0 clamp(24px, 4vw, 64px); padding: clamp(110px, 14vw, 170px) var(--lateral) clamp(80px, 10vw, 130px);
   overflow: hidden;
 }
-.tour-head { grid-column: 1 / -1; }
+.tour-head { grid-column: 1 / -1; margin-bottom: clamp(32px, 4vw, 56px); }
 .tour-head .eyebrow { margin-bottom: 18px; }
 .tour-title { font-family: var(--display); font-weight: 700; font-size: clamp(28px, 3.2vw, 48px); line-height: 1.04; letter-spacing: -0.03em; max-width: 22ch; }
-.tour-visual { grid-column: 2; grid-row: 2; position: relative; display: grid; place-items: center; min-height: 340px; }
+.tour-visual { grid-column: 2; grid-row: 2; position: relative; display: grid; place-items: center; min-height: 380px; }
 .tour-halo {
   position: absolute; width: 70%; aspect-ratio: 1; border-radius: 50%;
   background: radial-gradient(circle, rgba(238, 204, 37, 0.28) 0%, rgba(155, 106, 13, 0.12) 40%, transparent 70%);
-  filter: blur(12px);
+  filter: blur(12px); transition: opacity 0.8s var(--suave), transform 0.8s var(--suave);
 }
-.tour-mark { position: relative; width: min(56%, 340px); filter: drop-shadow(0 30px 60px rgba(0, 0, 0, 0.8)) drop-shadow(0 0 40px rgba(238, 204, 37, 0.25)); will-change: transform, filter; }
-.chapters { grid-column: 1; grid-row: 2; list-style: none; position: relative; align-self: center; min-height: 300px; }
-.chapter { position: absolute; inset: 0 0 auto 0; opacity: 0; transform: translateY(30px); transition: opacity 0.6s var(--suave), transform 0.6s var(--suave); pointer-events: none; }
-.chapter.is-active { opacity: 1; transform: none; pointer-events: auto; }
+.tour-mark {
+  position: relative; width: min(56%, 340px);
+  filter: drop-shadow(0 30px 60px rgba(0, 0, 0, 0.8)) drop-shadow(0 0 40px rgba(238, 204, 37, 0.25));
+  transition: transform 0.9s var(--suave), filter 0.9s var(--suave);
+}
+.chapters { grid-column: 1; grid-row: 2; list-style: none; position: relative; align-self: center; min-height: 340px; touch-action: pan-y; }
+.chapter { position: absolute; inset: 0 0 auto 0; opacity: 0; transform: translateX(40px); transition: opacity 0.25s ease, transform 0.4s var(--suave); pointer-events: none; }
+.chapter.antes { transform: translateX(-40px); }
+.chapter.is-active { opacity: 1; transform: none; pointer-events: auto; transition: opacity 0.5s ease 0.2s, transform 0.7s var(--suave) 0.2s; }
 .chapter h3 { font-family: var(--display); font-weight: 800; font-size: clamp(44px, 5.6vw, 92px); line-height: 0.95; letter-spacing: -0.04em; margin-bottom: 24px; }
 .chapter h3 em {
   font-style: italic; white-space: nowrap; padding-right: 0.06em; color: var(--ouro-aceso);
   background: var(--ouro-metal); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
 }
 .chapter p { max-width: 40ch; font-size: 15.5px; line-height: 1.75; color: var(--texto-suave); font-weight: 300; }
-.tour-counter { grid-column: 1; grid-row: 3; font-family: var(--display); font-weight: 600; font-size: 13px; letter-spacing: 0.2em; color: var(--texto-suave); }
-.tour-now { color: var(--texto); }
-.tour-progress { grid-column: 2; grid-row: 3; align-self: center; height: 1px; background: var(--linha-forte); }
-.tour-progress i { display: block; height: 100%; width: 100%; background: var(--ouro-metal); transform: scaleX(0.2); transform-origin: left; }
 
-/* sem JavaScript ou com movimento reduzido: as cinco etapas viram uma lista comum */
-html:not(.tour-ativo) .tour-stage { display: block; min-height: 0; padding-top: clamp(110px, 14vw, 190px); padding-bottom: clamp(110px, 14vw, 190px); }
-html:not(.tour-ativo) .tour-visual, html:not(.tour-ativo) .tour-counter, html:not(.tour-ativo) .tour-progress { display: none; }
+/* controles */
+.tour-nav { grid-column: 1; grid-row: 3; display: flex; align-items: center; gap: 18px; margin-top: 32px; }
+.tour-arrow {
+  width: 56px; height: 56px; display: grid; place-items: center; cursor: pointer;
+  background: transparent; color: var(--texto); border: 1px solid var(--linha-forte);
+  font-family: var(--display); font-size: 20px; line-height: 1;
+  transition: border-color 0.3s, color 0.3s, background-color 0.3s, transform 0.4s var(--suave);
+}
+.tour-arrow:hover { border-color: var(--ouro-aceso); color: var(--ouro-aceso); }
+.tour-next { background: var(--ouro-metal); color: var(--fundo); border-color: transparent; }
+.tour-next:hover { color: var(--fundo); transform: translateX(3px); }
+.tour-prev:hover { transform: translateX(-3px); }
+.tour-arrow:disabled { opacity: 0.3; pointer-events: none; }
+.tour-counter { font-family: var(--display); font-weight: 600; font-size: 13px; letter-spacing: 0.2em; color: var(--texto-suave); min-width: 72px; text-align: center; }
+.tour-now { color: var(--texto); }
+.tour-tabs { grid-column: 2; grid-row: 3; align-self: end; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; margin-top: 32px; }
+.tour-tabs button {
+  position: relative; cursor: pointer; text-align: left; background: none; border: 0; color: var(--texto-suave);
+  padding: 16px 0 0; font-family: var(--display); font-size: 10.5px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase;
+  transition: color 0.3s; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.tour-tabs button span { display: block; font-size: 12px; letter-spacing: 0.1em; margin-bottom: 4px; color: var(--texto); }
+.tour-tabs button::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 2px; background: var(--linha-forte); }
+.tour-tabs button i { position: absolute; left: 0; top: 0; height: 2px; width: 100%; background: var(--ouro-metal); transform: scaleX(0); transform-origin: left; }
+.tour-tabs button:hover { color: var(--texto); }
+.tour-tabs button[aria-selected="true"] { color: var(--ouro-aceso); }
+.tour-tabs button[aria-selected="true"] i { transform: scaleX(1); }
+/* com avanço automático, a aba ativa enche como uma barra de tempo */
+.tour.auto .tour-tabs button[aria-selected="true"] i { animation: encher-aba var(--tempo, 7s) linear forwards; }
+@keyframes encher-aba { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+
+/* sem JavaScript: as cinco etapas viram uma lista comum */
+html:not(.tour-ativo) .tour-visual, html:not(.tour-ativo) .tour-nav, html:not(.tour-ativo) .tour-tabs { display: none; }
+html:not(.tour-ativo) .tour-stage { display: block; }
 html:not(.tour-ativo) .tour-head { margin-bottom: 56px; }
 html:not(.tour-ativo) .chapters { display: grid; gap: 48px; min-height: 0; }
 html:not(.tour-ativo) .chapter { position: static; opacity: 1; transform: none; }
@@ -364,12 +395,14 @@ html:not(.tour-ativo) .chapter h3 { font-size: clamp(34px, 4.4vw, 60px); }
   .hero-art { position: relative; top: auto; right: auto; transform: none; width: min(62%, 300px); margin: 0 auto 28px; }
   .hero-floor { top: 36vh; bottom: auto; left: 0; height: 16vh; }
   .hero-scroll { display: none; }
-  .tour-stage { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto auto 1fr auto; }
-  .tour-visual { grid-column: 1; grid-row: 2; min-height: 180px; }
-  .tour-mark { width: 120px; }
-  .chapters { grid-column: 1; grid-row: 3; }
-  .tour-counter { grid-row: 4; }
-  .tour-progress { display: none; }
+  .tour-stage { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto auto auto auto auto; }
+  .tour-visual { grid-column: 1; grid-row: 2; min-height: 170px; }
+  .tour-mark { width: 110px; }
+  .chapters { grid-column: 1; grid-row: 3; min-height: 330px; }
+  .tour-tabs { grid-column: 1; grid-row: 4; margin-top: 8px; }
+  .tour-tabs button { font-size: 0; letter-spacing: 0; }
+  .tour-tabs button span { font-size: 12px; margin: 0; }
+  .tour-nav { grid-column: 1; grid-row: 5; margin-top: 24px; }
   .reach { grid-template-columns: minmax(0, 1fr); }
   .audience { grid-template-columns: minmax(0, 1fr); }
   .video-feature { grid-template-columns: minmax(0, 1fr); }

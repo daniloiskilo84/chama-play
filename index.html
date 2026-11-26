@@ -13,8 +13,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Manrope:ital,wght@0,500;0,600;0,700;0,800;1,700;1,800&family=Montserrat:wght@500;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=20261126c">
-  <script>document.documentElement.classList.add('js');</script>
+  <link rel="stylesheet" href="styles.css?v=20261126d">
+  <script>document.documentElement.classList.add('js', 'tour-ativo');</script>
 </head>
 <body>
   <!-- carregamento: a chama acende e a barra enche -->
@@ -102,8 +102,19 @@
           </li>
         </ol>
 
-        <div class="tour-counter" aria-hidden="true"><span class="tour-now">01</span> / 05</div>
-        <div class="tour-progress" aria-hidden="true"><i></i></div>
+        <!-- controles do carrossel (aparecem só com JavaScript; sem ele, as etapas viram lista) -->
+        <div class="tour-nav">
+          <button class="tour-arrow tour-prev" type="button" aria-label="Etapa anterior">←</button>
+          <div class="tour-counter" aria-live="polite"><span class="tour-now">01</span> / 05</div>
+          <button class="tour-arrow tour-next" type="button" aria-label="Próxima etapa">→</button>
+        </div>
+        <div class="tour-tabs" role="tablist" aria-label="Etapas">
+          <button type="button" role="tab" aria-selected="true"><i></i><span>01</span> Repertório</button>
+          <button type="button" role="tab" aria-selected="false"><i></i><span>02</span> Produção</button>
+          <button type="button" role="tab" aria-selected="false"><i></i><span>03</span> Lançamento</button>
+          <button type="button" role="tab" aria-selected="false"><i></i><span>04</span> Palco</button>
+          <button type="button" role="tab" aria-selected="false"><i></i><span>05</span> Carreira</button>
+        </div>
       </div>
     </section>
 
@@ -253,6 +264,6 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js" defer></script>
-  <script src="main.js?v=20261126c" defer></script>
+  <script src="main.js?v=20261126d" defer></script>
 </body>
 </html>
