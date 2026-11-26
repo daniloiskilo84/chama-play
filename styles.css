@@ -1,0 +1,362 @@
+/* Chama Play · identidade "ouro e brasa" na mesma linguagem cinematográfica do site da Bravuno:
+   escuro, a chama surgindo da luz, títulos pesados com destaque em itálico, rótulos espaçados,
+   botões retos e um tour em capítulos guiado pela rolagem. Cores medidas na logo. */
+
+:root {
+  /* fundo preto quente (brasa apagada) + ouro da chama + prata do "PLAY" */
+  --fundo: #070502;
+  --carvao: #120d05;
+  --carvao-2: #1d1508;
+  --ouro-escuro: #9b6a0d;
+  --ouro: #cd9c1c;
+  --ouro-aceso: #eecc25;
+  --ouro-claro: #ffe27a;
+  --ouro-metal: linear-gradient(100deg, #a8740f 0%, #f5d52c 32%, #c38e17 58%, #ffe066 78%, #b07a12 100%);
+  --prata: #bababb;
+  --texto: #f5efe2;
+  --texto-suave: #948a78;
+  --linha: rgba(245, 239, 226, 0.07);
+  --linha-forte: rgba(245, 239, 226, 0.16);
+
+  --display: "Manrope", system-ui, sans-serif;
+  --corpo: "Inter", system-ui, sans-serif;
+  --marca: "Montserrat", "Manrope", sans-serif;
+  --lateral: clamp(22px, 4.4vw, 64px);
+  --suave: cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { -webkit-text-size-adjust: 100%; }
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+body {
+  background: var(--fundo);
+  color: var(--texto);
+  font-family: var(--corpo);
+  font-size: 16px;
+  line-height: 1.6;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; text-decoration: none; }
+img { display: block; max-width: 100%; height: auto; }
+:focus-visible { outline: 2px solid var(--ouro-aceso); outline-offset: 4px; }
+::selection { background: var(--ouro); color: var(--fundo); }
+.visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* ---------- grão de filme ---------- */
+.grain {
+  position: fixed; inset: -50%; z-index: 2; pointer-events: none; opacity: 0.06;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation: grao 0.9s steps(4) infinite;
+}
+@keyframes grao { 0% { transform: translate(0, 0); } 25% { transform: translate(-3%, 2%); } 50% { transform: translate(2%, -3%); } 75% { transform: translate(-2%, -1%); } }
+
+/* palavra de destaque: ouro metálico, como as letras da logo */
+.gold-text {
+  font-style: italic; padding-right: 0.08em;
+  color: var(--ouro-aceso);
+  background: var(--ouro-metal); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+}
+
+/* ---------- carregamento ---------- */
+.loader {
+  position: fixed; inset: 0; z-index: 1000; background: var(--fundo);
+  display: none; flex-direction: column; align-items: center; justify-content: center; gap: 22px;
+}
+.js .loader { display: flex; }
+.loader-mark { width: 84px; filter: drop-shadow(0 0 30px rgba(238, 204, 37, 0.4)); animation: acender 1.4s ease-out both; }
+.loader-word { font-family: var(--marca); font-weight: 500; font-size: 12px; letter-spacing: 0.7em; padding-left: 0.7em; color: var(--prata); }
+.loader-bar { width: 220px; height: 1px; background: var(--carvao-2); position: relative; overflow: hidden; }
+.loader-bar::after {
+  content: ""; position: absolute; inset: 0; background: var(--ouro-metal);
+  transform: scaleX(0); transform-origin: left; animation: encher 1.3s var(--suave) forwards;
+}
+@keyframes encher { to { transform: scaleX(1); } }
+@keyframes acender { from { opacity: 0; filter: drop-shadow(0 0 0 transparent) brightness(0.3); } }
+
+/* ---------- cursor: brasa (só com mouse) ---------- */
+/* o canvas .embers solta fagulhas douradas que sobem e se apagam atrás do cursor (main.js) */
+.cursor-dot, .cursor-ring, .embers { display: none; }
+@media (hover: hover) and (pointer: fine) {
+  .js.cursor-on body, .js.cursor-on a, .js.cursor-on summary { cursor: none; }
+  .js.cursor-on .embers { display: block; position: fixed; inset: 0; width: 100%; height: 100%; z-index: 101; pointer-events: none; }
+  .js.cursor-on .cursor-dot, .js.cursor-on .cursor-ring {
+    display: block; position: fixed; top: 0; left: 0; z-index: 999; pointer-events: none; border-radius: 50%;
+  }
+  .cursor-dot { width: 5px; height: 5px; margin: -2.5px 0 0 -2.5px; background: var(--ouro-claro); box-shadow: 0 0 10px 2px rgba(238, 204, 37, 0.7); }
+  .cursor-ring {
+    width: 40px; height: 40px; margin: -20px 0 0 -20px; border: 1px solid rgba(238, 204, 37, 0.45);
+    transition: width 0.4s var(--suave), height 0.4s var(--suave), margin 0.4s var(--suave), background 0.4s, border-color 0.4s;
+  }
+  .cursor-ring.sobre { width: 70px; height: 70px; margin: -35px 0 0 -35px; background: rgba(238, 204, 37, 0.08); border-color: rgba(238, 204, 37, 0.8); }
+}
+
+/* ---------- navegação ---------- */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between; gap: 24px;
+  padding: 24px var(--lateral);
+  transition: background 0.5s, padding 0.5s, border-color 0.5s;
+  border-bottom: 1px solid transparent;
+}
+.nav.rolou { background: rgba(7, 5, 2, 0.8); backdrop-filter: blur(14px); padding-top: 14px; padding-bottom: 14px; border-color: var(--linha); }
+.brand { display: flex; align-items: center; gap: 12px; }
+.brand img { width: 34px; filter: drop-shadow(0 0 12px rgba(238, 204, 37, 0.3)); }
+.brand-text { display: flex; flex-direction: column; gap: 5px; line-height: 1; }
+.brand-name {
+  font-family: var(--marca); font-weight: 800; font-size: 16px; letter-spacing: 0.04em;
+  background: var(--ouro-metal); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: var(--ouro);
+}
+.brand-sub { font-family: var(--marca); font-weight: 500; font-size: 8px; letter-spacing: 0.95em; color: var(--prata); }
+.nav-links { display: flex; gap: clamp(20px, 3vw, 44px); }
+.nav-links a {
+  font-family: var(--display); font-size: 11px; font-weight: 600; letter-spacing: 0.24em; text-transform: uppercase;
+  color: var(--texto-suave); position: relative; padding: 6px 0; transition: color 0.3s;
+}
+.nav-links a::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: var(--ouro-aceso);
+  transform: scaleX(0); transform-origin: right; transition: transform 0.5s var(--suave);
+}
+.nav-links a:hover { color: var(--texto); }
+.nav-links a:hover::after { transform: scaleX(1); transform-origin: left; }
+
+/* ---------- botões: retos, em ouro metálico com texto escuro ---------- */
+.btn {
+  display: inline-flex; align-items: center; gap: 12px;
+  padding: 18px 34px;
+  font-family: var(--display); font-size: 11.5px; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase;
+  transition: transform 0.4s var(--suave), background-position 0.8s var(--suave), border-color 0.4s, color 0.4s, box-shadow 0.4s;
+}
+.btn .arrow { transition: transform 0.4s var(--suave); }
+.btn:hover .arrow { transform: translateX(5px); }
+.btn-gold {
+  color: var(--fundo);
+  background: var(--ouro-metal); background-size: 200% 100%; background-position: 0 0;
+  box-shadow: 0 10px 30px -14px rgba(238, 204, 37, 0.6);
+}
+.btn-gold:hover { background-position: 100% 0; transform: translateY(-2px); box-shadow: 0 16px 40px -14px rgba(238, 204, 37, 0.8); }
+.btn-ghost { border: 1px solid var(--linha-forte); color: var(--texto); }
+.btn-ghost:hover { border-color: var(--ouro-aceso); color: var(--ouro-aceso); transform: translateY(-2px); }
+.btn-small { padding: 13px 22px; font-size: 10.5px; }
+.btn-big { padding: 22px 44px; font-size: 12.5px; }
+
+/* ---------- textos comuns ---------- */
+.eyebrow {
+  display: flex; align-items: center; gap: 16px;
+  font-family: var(--display); font-size: 11px; font-weight: 700; letter-spacing: 0.32em; text-transform: uppercase;
+  color: var(--ouro-aceso); margin-bottom: 26px;
+}
+.eyebrow::before { content: ""; width: 38px; height: 1px; background: var(--ouro-aceso); flex-shrink: 0; }
+.section-title {
+  font-family: var(--display); font-weight: 700; font-size: clamp(40px, 5.6vw, 92px);
+  line-height: 0.96; letter-spacing: -0.035em;
+}
+.section-note { max-width: 40ch; font-size: 14.5px; line-height: 1.8; color: var(--texto-suave); font-weight: 300; }
+.section-head {
+  display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 32px;
+  margin-bottom: clamp(48px, 7vw, 96px);
+}
+.chapter-label { display: block; font-family: var(--display); font-size: 11px; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: var(--ouro-aceso); margin-bottom: 20px; }
+
+main > section { position: relative; z-index: 3; padding: clamp(110px, 14vw, 190px) var(--lateral); }
+main > section + section { border-top: 1px solid var(--linha); }
+
+/* ---------- hero ---------- */
+.hero {
+  min-height: 100vh; min-height: 100svh;
+  display: flex; flex-direction: column; justify-content: flex-end;
+  padding-bottom: clamp(70px, 9vw, 110px) !important;
+  overflow: hidden; isolation: isolate;
+}
+.hero::before {
+  content: ""; position: absolute; inset: 0; z-index: -1;
+  background:
+    radial-gradient(ellipse 50% 60% at 70% 40%, rgba(150, 95, 10, 0.45) 0%, rgba(60, 35, 5, 0.25) 45%, transparent 72%),
+    linear-gradient(90deg, var(--fundo) 0%, rgba(7, 5, 2, 0.35) 50%, var(--fundo) 100%);
+}
+.hero-art {
+  position: absolute; top: 44%; right: 8%; width: min(38%, 560px); transform: translateY(-50%);
+  z-index: 1; pointer-events: none; will-change: transform;
+}
+.hero-art img {
+  width: 100%;
+  filter: drop-shadow(0 50px 90px rgba(0, 0, 0, 0.9)) drop-shadow(0 0 60px rgba(238, 204, 37, 0.25));
+  animation: tremula 5s ease-in-out infinite;
+  transform-origin: 50% 100%;
+}
+@keyframes tremula {
+  0%, 100% { transform: scale(1, 1) skewX(0deg); }
+  30% { transform: scale(1.01, 1.025) skewX(-0.6deg); }
+  60% { transform: scale(0.995, 1.01) skewX(0.5deg); }
+}
+/* reflexo dourado no chão, em perspectiva */
+.hero-floor {
+  position: absolute; left: 30%; right: 0; bottom: 6%; height: 24vh; z-index: 0; pointer-events: none;
+  background: radial-gradient(ellipse at 62% 50%, rgba(238, 204, 37, 0.32), rgba(155, 106, 13, 0.14) 46%, transparent 76%);
+  filter: blur(26px);
+  transform: perspective(800px) rotateX(64deg);
+}
+.hero .eyebrow, .hero-title, .hero-meta { position: relative; z-index: 4; }
+.hero-title {
+  font-family: var(--display); font-weight: 800; font-size: clamp(46px, 6.4vw, 104px);
+  line-height: 0.94; letter-spacing: -0.04em; margin-bottom: 30px; max-width: 11ch;
+}
+.hero-meta { display: flex; justify-content: space-between; align-items: flex-end; gap: 32px; flex-wrap: wrap; }
+.hero-sub { max-width: 44ch; font-size: 15px; line-height: 1.75; color: var(--texto-suave); font-weight: 300; }
+.hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+.hero-scroll {
+  position: absolute; right: var(--lateral); bottom: 30px; z-index: 4;
+  display: flex; flex-direction: column; align-items: center; gap: 12px;
+}
+.hero-scroll span { writing-mode: vertical-rl; font-size: 9px; letter-spacing: 0.4em; text-transform: uppercase; color: var(--texto-suave); }
+.hero-scroll i { width: 1px; height: 60px; background: linear-gradient(var(--ouro-aceso), transparent); animation: pulso 2.4s ease-in-out infinite; }
+@keyframes pulso { 0%, 100% { opacity: 0.25; transform: scaleY(0.6); transform-origin: top; } 50% { opacity: 1; transform: scaleY(1); } }
+.js .hero-in { opacity: 0; transform: translateY(26px); }
+
+/* ---------- tour "da composição ao palco" ---------- */
+.tour { padding: 0 !important; }
+.tour-stage {
+  position: relative; min-height: 100vh; min-height: 100svh;
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); grid-template-rows: auto 1fr auto;
+  gap: 0 clamp(24px, 4vw, 64px); padding: clamp(100px, 12vh, 140px) var(--lateral) 56px;
+  overflow: hidden;
+}
+.tour-head { grid-column: 1 / -1; }
+.tour-head .eyebrow { margin-bottom: 18px; }
+.tour-title { font-family: var(--display); font-weight: 700; font-size: clamp(28px, 3.2vw, 48px); line-height: 1.04; letter-spacing: -0.03em; max-width: 22ch; }
+.tour-visual { grid-column: 2; grid-row: 2; position: relative; display: grid; place-items: center; min-height: 340px; }
+.tour-halo {
+  position: absolute; width: 70%; aspect-ratio: 1; border-radius: 50%;
+  background: radial-gradient(circle, rgba(238, 204, 37, 0.28) 0%, rgba(155, 106, 13, 0.12) 40%, transparent 70%);
+  filter: blur(12px);
+}
+.tour-mark { position: relative; width: min(56%, 340px); filter: drop-shadow(0 30px 60px rgba(0, 0, 0, 0.8)) drop-shadow(0 0 40px rgba(238, 204, 37, 0.25)); will-change: transform, filter; }
+.chapters { grid-column: 1; grid-row: 2; list-style: none; position: relative; align-self: center; min-height: 300px; }
+.chapter { position: absolute; inset: 0 0 auto 0; opacity: 0; transform: translateY(30px); transition: opacity 0.6s var(--suave), transform 0.6s var(--suave); pointer-events: none; }
+.chapter.is-active { opacity: 1; transform: none; pointer-events: auto; }
+.chapter h3 { font-family: var(--display); font-weight: 800; font-size: clamp(44px, 5.6vw, 92px); line-height: 0.95; letter-spacing: -0.04em; margin-bottom: 24px; }
+.chapter h3 em {
+  font-style: italic; white-space: nowrap; padding-right: 0.06em; color: var(--ouro-aceso);
+  background: var(--ouro-metal); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+}
+.chapter p { max-width: 40ch; font-size: 15.5px; line-height: 1.75; color: var(--texto-suave); font-weight: 300; }
+.tour-counter { grid-column: 1; grid-row: 3; font-family: var(--display); font-weight: 600; font-size: 13px; letter-spacing: 0.2em; color: var(--texto-suave); }
+.tour-now { color: var(--texto); }
+.tour-progress { grid-column: 2; grid-row: 3; align-self: center; height: 1px; background: var(--linha-forte); }
+.tour-progress i { display: block; height: 100%; width: 100%; background: var(--ouro-metal); transform: scaleX(0.2); transform-origin: left; }
+
+/* sem JavaScript ou com movimento reduzido: as cinco etapas viram uma lista comum */
+html:not(.tour-ativo) .tour-stage { display: block; min-height: 0; padding-top: clamp(110px, 14vw, 190px); padding-bottom: clamp(110px, 14vw, 190px); }
+html:not(.tour-ativo) .tour-visual, html:not(.tour-ativo) .tour-counter, html:not(.tour-ativo) .tour-progress { display: none; }
+html:not(.tour-ativo) .tour-head { margin-bottom: 56px; }
+html:not(.tour-ativo) .chapters { display: grid; gap: 48px; min-height: 0; }
+html:not(.tour-ativo) .chapter { position: static; opacity: 1; transform: none; }
+html:not(.tour-ativo) .chapter h3 { font-size: clamp(34px, 4.4vw, 60px); }
+
+/* ---------- alcance (número gigante) ---------- */
+.reach {
+  display: grid; grid-template-columns: auto 1fr; align-items: center; gap: clamp(32px, 6vw, 96px);
+  background: radial-gradient(ellipse 50% 70% at 18% 50%, rgba(120, 75, 8, 0.35), transparent 70%);
+}
+.reach-number {
+  font-family: var(--display); font-weight: 800; font-size: clamp(110px, 19vw, 310px); line-height: 0.8; letter-spacing: -0.07em;
+  background: var(--ouro-metal); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: var(--ouro-aceso);
+}
+.reach-number span { font-size: 0.26em; letter-spacing: -0.02em; margin-left: 0.08em; }
+.reach-text .section-title { margin-bottom: 26px; }
+
+/* ---------- quem somos (linhas com nome gigante atrás) ---------- */
+.people { list-style: none; border-top: 1px solid var(--linha); }
+.people li {
+  position: relative; overflow: hidden; border-bottom: 1px solid var(--linha);
+  padding: clamp(26px, 3.6vw, 44px) 0; display: flex; align-items: baseline; justify-content: space-between; gap: 24px; flex-wrap: wrap;
+}
+.person-name { position: relative; font-family: var(--display); font-weight: 700; font-size: clamp(26px, 3.4vw, 52px); letter-spacing: -0.03em; transition: color 0.5s, transform 0.6s var(--suave); }
+.person-role { position: relative; font-family: var(--display); font-size: 11px; font-weight: 700; letter-spacing: 0.26em; text-transform: uppercase; color: var(--prata); }
+.person-word {
+  position: absolute; right: -0.04em; top: 50%; transform: translateY(-50%);
+  font-family: var(--display); font-weight: 800; font-size: clamp(80px, 11vw, 170px); letter-spacing: -0.06em;
+  color: rgba(245, 239, 226, 0.03); white-space: nowrap; pointer-events: none; transition: color 0.6s, transform 1s var(--suave);
+}
+.people li:hover .person-name { color: var(--ouro-aceso); transform: translateX(10px); }
+.people li:hover .person-word { color: rgba(238, 204, 37, 0.07); transform: translateY(-50%) scale(1.04); }
+
+/* ---------- edições / DVDs ---------- */
+.edition-list { list-style: none; border-top: 1px solid var(--linha); }
+.edition-list li {
+  display: grid; grid-template-columns: clamp(90px, 12vw, 180px) minmax(0, 1fr) auto; align-items: center; gap: 24px;
+  padding: 30px 0; border-bottom: 1px solid var(--linha); transition: background 0.5s;
+}
+.edition-n {
+  font-family: var(--display); font-weight: 800; font-size: clamp(44px, 5vw, 80px); line-height: 1; letter-spacing: -0.05em;
+  color: transparent; -webkit-text-stroke: 1px rgba(238, 204, 37, 0.55); transition: color 0.5s, -webkit-text-stroke-color 0.5s;
+}
+.edition-name { font-family: var(--display); font-weight: 700; font-size: clamp(22px, 2.2vw, 32px); letter-spacing: -0.02em; }
+.edition-info { font-size: 13px; color: var(--texto-suave); text-align: right; }
+.edition-list li:hover { background: linear-gradient(90deg, rgba(238, 204, 37, 0.05), transparent 70%); }
+.edition-list li:hover .edition-n { color: var(--ouro-aceso); -webkit-text-stroke-color: var(--ouro-aceso); }
+.edition-more { margin-top: 28px; color: var(--texto-suave); font-size: 14px; }
+.edition-more a { color: var(--ouro-aceso); border-bottom: 1px solid rgba(238, 204, 37, 0.4); }
+
+/* ---------- Chama Nóis ---------- */
+.nois { background: radial-gradient(ellipse 60% 50% at 80% 20%, rgba(120, 75, 8, 0.22), transparent 70%); }
+.audience { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.audience article { padding: 40px 36px 44px 0; border-top: 1px solid var(--linha-forte); }
+.audience article + article { padding-left: 36px; border-left: 1px solid var(--linha); }
+.audience .chapter-label { margin-bottom: 14px; }
+.audience h3 { font-family: var(--display); font-weight: 700; font-size: clamp(24px, 2.4vw, 34px); letter-spacing: -0.02em; margin-bottom: 12px; }
+.audience p { color: var(--texto-suave); font-size: 14.5px; line-height: 1.75; font-weight: 300; }
+
+/* ---------- chamada final ---------- */
+.final { text-align: center; display: flex; flex-direction: column; align-items: center; isolation: isolate; overflow: hidden; }
+.final::before {
+  content: ""; position: absolute; left: 10%; right: 10%; top: 4%; height: 70%; z-index: -1;
+  background: radial-gradient(ellipse at 50% 35%, rgba(150, 95, 10, 0.5), transparent 65%);
+}
+.final-mark { width: 120px; margin-bottom: 32px; filter: drop-shadow(0 0 40px rgba(238, 204, 37, 0.35)); }
+.final-title { font-family: var(--display); font-weight: 800; font-size: clamp(52px, 8vw, 132px); line-height: 0.92; letter-spacing: -0.045em; margin-bottom: 26px; }
+.final .section-note { margin-bottom: 40px; max-width: 48ch; }
+.socials { list-style: none; display: flex; flex-wrap: wrap; justify-content: center; gap: 12px 32px; margin-top: 48px; }
+.socials a { font-family: var(--display); font-size: 11px; font-weight: 700; letter-spacing: 0.26em; text-transform: uppercase; color: var(--prata); transition: color 0.3s; }
+.socials a:hover { color: var(--ouro-aceso); }
+
+/* ---------- rodapé ---------- */
+.footer {
+  position: relative; z-index: 3; border-top: 1px solid var(--linha);
+  padding: 48px var(--lateral) 56px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 24px 40px;
+}
+.footer nav { display: flex; gap: 28px; flex-wrap: wrap; }
+.footer nav a { font-family: var(--display); font-size: 11px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--texto-suave); }
+.footer nav a:hover { color: var(--ouro-aceso); }
+.footer p { width: 100%; font-size: 12px; color: var(--texto-suave); }
+
+/* ---------- celular ---------- */
+@media (max-width: 980px) {
+  .nav-links { display: none; }
+  .hero { justify-content: flex-start; padding-top: 104px !important; }
+  .hero-art { position: relative; top: auto; right: auto; transform: none; width: min(62%, 300px); margin: 0 auto 28px; }
+  .hero-floor { top: 36vh; bottom: auto; left: 0; height: 16vh; }
+  .hero-scroll { display: none; }
+  .tour-stage { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto auto 1fr auto; }
+  .tour-visual { grid-column: 1; grid-row: 2; min-height: 180px; }
+  .tour-mark { width: 120px; }
+  .chapters { grid-column: 1; grid-row: 3; }
+  .tour-counter { grid-row: 4; }
+  .tour-progress { display: none; }
+  .reach { grid-template-columns: minmax(0, 1fr); }
+  .edition-list li { grid-template-columns: auto minmax(0, 1fr); }
+  .edition-info { grid-column: 2; text-align: left; margin-top: -14px; }
+  .audience { grid-template-columns: minmax(0, 1fr); }
+  .audience article, .audience article + article { padding: 32px 0; border-left: 0; }
+}
+@media (max-width: 560px) {
+  .btn-small { display: none; }
+  .hero-actions .btn { flex: 1 1 100%; justify-content: center; }
+  .chapter h3 { font-size: 40px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  .js .hero-in { opacity: 1; transform: none; }
+}

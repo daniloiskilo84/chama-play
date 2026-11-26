@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Chama Play — gravadora e produtora sertaneja</title>
+  <meta name="description" content="Chama Play: selo, gravadora e produtora especialista em gestão de carreiras artísticas no sertanejo. DVDs ao vivo, lançamentos e o novo selo Chama Nóis.">
+  <meta name="theme-color" content="#070502">
+  <meta property="og:title" content="Chama Play — onde o sertanejo pega fogo">
+  <meta property="og:description" content="Selo, gravadora e produtora especialista em gestão de carreiras artísticas.">
+  <meta property="og:image" content="assets/chama-logo.png">
+  <link rel="icon" href="assets/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Manrope:ital,wght@0,500;0,600;0,700;0,800;1,700;1,800&family=Montserrat:wght@500;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css?v=20261126a">
+  <script>document.documentElement.classList.add('js');</script>
+</head>
+<body>
+  <!-- carregamento: a chama acende e a barra enche -->
+  <div class="loader" id="loader" aria-hidden="true">
+    <img class="loader-mark" src="assets/chama-mark.png" alt="" width="84" height="100">
+    <span class="loader-word">CHAMA PLAY</span>
+    <span class="loader-bar"></span>
+  </div>
+
+  <div class="grain" aria-hidden="true"></div>
+  <canvas class="embers" aria-hidden="true"></canvas>
+  <div class="cursor-dot" aria-hidden="true"></div>
+  <div class="cursor-ring" aria-hidden="true"></div>
+
+  <header class="nav" id="nav">
+    <a class="brand" href="#inicio" aria-label="Chama Play, início">
+      <img src="assets/chama-mark.png" alt="" width="34" height="41">
+      <span class="brand-text"><span class="brand-name">CHAMA</span><span class="brand-sub">PLAY</span></span>
+    </a>
+    <nav class="nav-links" aria-label="Principal">
+      <a href="#trajetoria">O que fazemos</a>
+      <a href="#quem-somos">Quem somos</a>
+      <a href="#edicoes">DVDs</a>
+      <a href="#chama-nois">Chama Nóis</a>
+    </nav>
+    <a class="btn btn-gold btn-small" href="https://wa.me/5511990063103" target="_blank" rel="noopener">Fale com a gente <span class="arrow" aria-hidden="true">→</span></a>
+  </header>
+
+  <main id="inicio">
+    <!-- HERO -->
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-art" aria-hidden="true">
+        <img src="assets/chama-mark.png" alt="" width="753" height="900">
+      </div>
+      <div class="hero-floor" aria-hidden="true"></div>
+
+      <p class="eyebrow hero-in">Selo · Gravadora · Produtora</p>
+      <h1 class="hero-title hero-in" id="hero-title">Onde o<br>sertanejo<br><em class="gold-text">pega fogo.</em></h1>
+      <div class="hero-meta">
+        <p class="hero-sub hero-in">Somos especialistas em gestão de carreiras artísticas, com um olhar completo sobre toda a trajetória musical e profissional de cada artista, da composição ao palco.</p>
+        <div class="hero-actions hero-in">
+          <a class="btn btn-gold" href="https://www.youtube.com/@chamaplaybr" target="_blank" rel="noopener">Assistir no YouTube <span class="arrow" aria-hidden="true">→</span></a>
+          <a class="btn btn-ghost" href="#trajetoria">Conheça a Chama</a>
+        </div>
+      </div>
+      <div class="hero-scroll" aria-hidden="true"><span>Role</span><i></i></div>
+    </section>
+
+    <!-- TOUR: da composição ao palco -->
+    <section class="tour" id="trajetoria" aria-labelledby="tour-title">
+      <div class="tour-stage">
+        <div class="tour-head">
+          <p class="eyebrow">Da composição ao palco</p>
+          <h2 class="tour-title" id="tour-title">A trajetória inteira do artista, num só <em class="gold-text">lugar.</em></h2>
+        </div>
+
+        <div class="tour-visual" aria-hidden="true">
+          <div class="tour-halo"></div>
+          <img class="tour-mark" src="assets/chama-mark.png" alt="" width="420" height="502">
+        </div>
+
+        <ol class="chapters">
+          <li class="chapter is-active">
+            <span class="chapter-label">01 · Repertório</span>
+            <h3>Nasce na <em>composição.</em></h3>
+            <p>A Chama Play foi idealizada por uma compositora. Toda carreira começa por uma boa música, e é por ela que a gente começa também.</p>
+          </li>
+          <li class="chapter">
+            <span class="chapter-label">02 · Produção</span>
+            <h3>Ganha forma no <em>estúdio.</em></h3>
+            <p>Produção musical, gravação e acabamento para cada faixa chegar ao público com a força que ela tem.</p>
+          </li>
+          <li class="chapter">
+            <span class="chapter-label">03 · Lançamento</span>
+            <h3>Chega a todas as <em>telas.</em></h3>
+            <p>YouTube, Spotify e redes sociais: cada lançamento é pensado para o play, com conteúdo para o público acompanhar.</p>
+          </li>
+          <li class="chapter">
+            <span class="chapter-label">04 · Palco</span>
+            <h3>Acende no <em>palco.</em></h3>
+            <p>DVDs gravados ao vivo, com participações de peso e noites feitas para ficar na memória de quem estava lá.</p>
+          </li>
+          <li class="chapter">
+            <span class="chapter-label">05 · Carreira</span>
+            <h3>E vira <em>carreira.</em></h3>
+            <p>Gestão de ponta a ponta: planejamento, imagem, agenda e os próximos passos de cada artista do selo.</p>
+          </li>
+        </ol>
+
+        <div class="tour-counter" aria-hidden="true"><span class="tour-now">01</span> / 05</div>
+        <div class="tour-progress" aria-hidden="true"><i></i></div>
+      </div>
+    </section>
+
+    <!-- NÚMERO -->
+    <section class="reach" aria-labelledby="reach-title">
+      <p class="reach-number" aria-hidden="true">482<span>mil</span></p>
+      <div class="reach-text">
+        <p class="eyebrow">Quem acompanha</p>
+        <h2 class="section-title" id="reach-title">Uma plateia que não para de <em class="gold-text">crescer.</em></h2>
+        <p class="section-note">São 482 mil seguidores no Instagram acompanhando lançamentos, bastidores e as noites de gravação da Chama Play.</p>
+      </div>
+    </section>
+
+    <!-- QUEM SOMOS -->
+    <section class="founders" id="quem-somos" aria-labelledby="founders-title">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Quem somos</p>
+          <h2 class="section-title" id="founders-title">Feita por quem <em class="gold-text">vive</em> a música.</h2>
+        </div>
+        <p class="section-note">O selo e produtora Chama Play foi idealizado pela compositora Fátima Leão, ao lado de Ronaldo Castro e Marcio Straface, para apostar em projetos colaborativos e em novos formatos dentro do sertanejo.</p>
+      </div>
+      <ul class="people">
+        <li><span class="person-word" aria-hidden="true">Fátima</span><span class="person-name">Fátima Leão</span><span class="person-role">Compositora e idealizadora</span></li>
+        <li><span class="person-word" aria-hidden="true">Ronaldo</span><span class="person-name">Ronaldo Castro</span><span class="person-role">Sócio-fundador</span></li>
+        <li><span class="person-word" aria-hidden="true">Marcio</span><span class="person-name">Marcio Straface</span><span class="person-role">Sócio-fundador</span></li>
+      </ul>
+    </section>
+
+    <!-- EDIÇÕES / DVDs -->
+    <section class="editions" id="edicoes" aria-labelledby="ed-title">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">DVDs Chama Play</p>
+          <h2 class="section-title" id="ed-title">Cinco edições <em class="gold-text">ao vivo.</em></h2>
+        </div>
+        <p class="section-note">Noites históricas com grandes nomes da música sertaneja, gravadas para virar DVD e chegar a quem não estava lá.</p>
+      </div>
+      <ol class="edition-list">
+        <li><span class="edition-n">1ª</span><span class="edition-name">Primeira edição</span><span class="edition-info">Gravada ao vivo</span></li>
+        <li><span class="edition-n">2ª</span><span class="edition-name">Segunda edição</span><span class="edition-info">Villa Country · São Paulo · participações de peso</span></li>
+        <li><span class="edition-n">3ª</span><span class="edition-name">Terceira edição</span><span class="edition-info">Gravada ao vivo</span></li>
+        <li><span class="edition-n">4ª</span><span class="edition-name">Quarta edição</span><span class="edition-info">Gravada ao vivo</span></li>
+        <li><span class="edition-n">5ª</span><span class="edition-name">Quinta edição</span><span class="edition-info">Gravada ao vivo</span></li>
+      </ol>
+      <p class="edition-more">Os melhores momentos de cada edição estão no <a href="https://www.instagram.com/chamaplay/" target="_blank" rel="noopener">Instagram</a> e no <a href="https://www.youtube.com/@chamaplaybr" target="_blank" rel="noopener">YouTube</a>.</p>
+    </section>
+
+    <!-- CHAMA NÓIS -->
+    <section class="nois" id="chama-nois" aria-labelledby="nois-title">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Novo selo</p>
+          <h2 class="section-title" id="nois-title">Chama <em class="gold-text">Nóis.</em></h2>
+        </div>
+        <p class="section-note">A nova label da Chama Play estreou no Villa Country, em São Paulo: um show com clima de resenha entre amigos, sertanejo e releituras de outros estilos, tudo girando em torno da faixa inédita "Chama Nóis".</p>
+      </div>
+      <div class="audience">
+        <article>
+          <span class="chapter-label">Raiz</span>
+          <h3>Léo &amp; Júnior</h3>
+          <p>O sertanejo de raiz da dupla de "Ô Lá em Casa".</p>
+        </article>
+        <article>
+          <span class="chapter-label">Nova geração</span>
+          <h3>Pedro &amp; Gustavo</h3>
+          <p>A nova geração do sertanejo paulista.</p>
+        </article>
+        <article>
+          <span class="chapter-label">Voz</span>
+          <h3>Bárbara Lopes</h3>
+          <p>Mineira, com 15 anos de carreira.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- CHAMADA FINAL -->
+    <section class="final" id="contato" aria-labelledby="final-title">
+      <img class="final-mark" src="assets/chama-mark.png" alt="" width="150" height="179">
+      <h2 class="final-title" id="final-title">Sua carreira<br>merece <em class="gold-text">chama.</em></h2>
+      <p class="section-note">Artista, show, parceria ou imprensa: fale direto com a equipe da Chama Play pelo WhatsApp.</p>
+      <a class="btn btn-gold btn-big" href="https://wa.me/5511990063103" target="_blank" rel="noopener">Chamar no WhatsApp <span class="arrow" aria-hidden="true">→</span></a>
+      <ul class="socials" aria-label="Redes da Chama Play">
+        <li><a href="https://www.instagram.com/chamaplay/" target="_blank" rel="noopener">Instagram</a></li>
+        <li><a href="https://www.youtube.com/@chamaplaybr" target="_blank" rel="noopener">YouTube</a></li>
+        <li><a href="https://open.spotify.com/user/31ij4aflg3syvsnmcxevx7bgpck4" target="_blank" rel="noopener">Spotify</a></li>
+        <li><a href="https://linktr.ee/ChamaPlay" target="_blank" rel="noopener">Linktree</a></li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="brand brand--footer">
+      <img src="assets/chama-mark.png" alt="" width="34" height="41">
+      <span class="brand-text"><span class="brand-name">CHAMA</span><span class="brand-sub">PLAY</span></span>
+    </div>
+    <nav aria-label="Rodapé">
+      <a href="#trajetoria">O que fazemos</a>
+      <a href="#edicoes">DVDs</a>
+      <a href="#contato">Contato</a>
+    </nav>
+    <p>© 2026 Chama Play · Gravadora e produtora. YouTube, Spotify e Instagram são marcas de seus respectivos donos.</p>
+  </footer>
+
+  <!-- movimento: GSAP + ScrollTrigger + Lenis (mesma base do site da Bravuno) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js" defer></script>
+  <script src="main.js?v=20261126a" defer></script>
+</body>
+</html>
