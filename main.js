@@ -32,12 +32,10 @@
   window.addEventListener('scroll', marcarNav, { passive: true });
   marcarNav();
 
-  // ---------- cursor: brasa (só com mouse) ----------
-  // O cursor solta fagulhas douradas que sobem, tremulam e se apagam em ~1 s. Parado, não solta nada.
+  // ---------- cursor: seta dourada + brasa (só com mouse) ----------
+  // A seta (cursor nativo dourado, no CSS) solta fagulhas douradas que sobem, tremulam e se apagam em ~1 s. Parado, não solta nada.
   if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
     raiz.classList.add('cursor-on');
-    const ponto = document.querySelector('.cursor-dot');
-    const anel = document.querySelector('.cursor-ring');
     const tela = document.querySelector('.embers');
     const ctx = tela.getContext('2d');
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -51,10 +49,9 @@
     medir();
     window.addEventListener('resize', medir);
 
-    let x = -100, y = -100, ux = null, uy = null, ax = x, ay = y, rodando = false;
+    let x = -100, y = -100, ux = null, uy = null, rodando = false;
     window.addEventListener('mousemove', (e) => {
       x = e.clientX; y = e.clientY;
-      ponto.style.transform = `translate(${x}px, ${y}px)`;
       if (ux !== null && !reduzir) {
         const dist = Math.hypot(x - ux, y - uy);
         const n = Math.min(4, Math.floor(dist / 9));
@@ -72,9 +69,6 @@
     document.addEventListener('mouseleave', () => { ux = null; });
 
     function quadro(t) {
-      ax += (x - ax) * 0.2; ay += (y - ay) * 0.2;
-      anel.style.transform = `translate(${ax}px, ${ay}px)`;
-
       ctx.clearRect(0, 0, innerWidth, innerHeight);
       ctx.globalCompositeOperation = 'lighter';
       for (let i = fagulhas.length - 1; i >= 0; i--) {
@@ -94,15 +88,10 @@
       }
       ctx.globalCompositeOperation = 'source-over';
 
-      const parado = Math.abs(x - ax) < 0.3 && Math.abs(y - ay) < 0.3;
-      if (fagulhas.length || !parado) requestAnimationFrame(quadro);
+      if (fagulhas.length) requestAnimationFrame(quadro);
       else rodando = false;
     }
 
-    document.querySelectorAll('a, summary, .people li, .edition-list li').forEach((el) => {
-      el.addEventListener('mouseenter', () => anel.classList.add('sobre'));
-      el.addEventListener('mouseleave', () => anel.classList.remove('sobre'));
-    });
   }
 
   if (!temGsap || reduzir) return;

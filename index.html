@@ -13,7 +13,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Manrope:ital,wght@0,500;0,600;0,700;0,800;1,700;1,800&family=Montserrat:wght@500;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=20261126a">
+  <link rel="stylesheet" href="styles.css?v=20261126c">
   <script>document.documentElement.classList.add('js');</script>
 </head>
 <body>
@@ -26,8 +26,6 @@
 
   <div class="grain" aria-hidden="true"></div>
   <canvas class="embers" aria-hidden="true"></canvas>
-  <div class="cursor-dot" aria-hidden="true"></div>
-  <div class="cursor-ring" aria-hidden="true"></div>
 
   <header class="nav" id="nav">
     <a class="brand" href="#inicio" aria-label="Chama Play, início">
@@ -80,7 +78,7 @@
           <li class="chapter is-active">
             <span class="chapter-label">01 · Repertório</span>
             <h3>Nasce na <em>composição.</em></h3>
-            <p>A Chama Play foi idealizada por uma compositora. Toda carreira começa por uma boa música, e é por ela que a gente começa também.</p>
+            <p>Toda carreira começa por uma boa música. Escolha de repertório e composições certas para a voz e o momento de cada artista.</p>
           </li>
           <li class="chapter">
             <span class="chapter-label">02 · Produção</span>
@@ -126,10 +124,9 @@
           <p class="eyebrow">Quem somos</p>
           <h2 class="section-title" id="founders-title">Feita por quem <em class="gold-text">vive</em> a música.</h2>
         </div>
-        <p class="section-note">O selo e produtora Chama Play foi idealizado pela compositora Fátima Leão, ao lado de Ronaldo Castro e Marcio Straface, para apostar em projetos colaborativos e em novos formatos dentro do sertanejo.</p>
+        <p class="section-note">O selo e produtora Chama Play é comandado por Ronaldo Castro e Marcio Straface, que apostam em projetos colaborativos e em novos formatos dentro do sertanejo.</p>
       </div>
       <ul class="people">
-        <li><span class="person-word" aria-hidden="true">Fátima</span><span class="person-name">Fátima Leão</span><span class="person-role">Compositora e idealizadora</span></li>
         <li><span class="person-word" aria-hidden="true">Ronaldo</span><span class="person-name">Ronaldo Castro</span><span class="person-role">Sócio-fundador</span></li>
         <li><span class="person-word" aria-hidden="true">Marcio</span><span class="person-name">Marcio Straface</span><span class="person-role">Sócio-fundador</span></li>
       </ul>
@@ -144,14 +141,45 @@
         </div>
         <p class="section-note">Noites históricas com grandes nomes da música sertaneja, gravadas para virar DVD e chegar a quem não estava lá.</p>
       </div>
-      <ol class="edition-list">
-        <li><span class="edition-n">1ª</span><span class="edition-name">Primeira edição</span><span class="edition-info">Gravada ao vivo</span></li>
-        <li><span class="edition-n">2ª</span><span class="edition-name">Segunda edição</span><span class="edition-info">Villa Country · São Paulo · participações de peso</span></li>
-        <li><span class="edition-n">3ª</span><span class="edition-name">Terceira edição</span><span class="edition-info">Gravada ao vivo</span></li>
-        <li><span class="edition-n">4ª</span><span class="edition-name">Quarta edição</span><span class="edition-info">Gravada ao vivo</span></li>
-        <li><span class="edition-n">5ª</span><span class="edition-name">Quinta edição</span><span class="edition-info">Gravada ao vivo</span></li>
+      <!-- quadro das edições: cada card aponta para um vídeo da edição no YouTube (capa escolhida pelo cliente) -->
+      <ol class="edition-grid">
+        <li>
+          <a class="edition-card" href="https://www.youtube.com/watch?v=DkQIjzl83Y0" target="_blank" rel="noopener" aria-label="Assistir à 1ª edição no YouTube: Paulla e Kamilla, Leviano">
+            <span class="video-thumb"><img src="https://i.ytimg.com/vi/DkQIjzl83Y0/maxresdefault.jpg" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/DkQIjzl83Y0/hqdefault.jpg'" alt="Paulla e Kamilla cantando Leviano na primeira edição do Chama Play" loading="lazy" width="1280" height="720"><span class="play" aria-hidden="true"></span></span>
+            <span class="edition-meta"><span class="edition-n">1ª</span><span class="edition-name">Primeira edição</span></span>
+            <span class="edition-cover">Paulla e Kamilla · Leviano</span>
+          </a>
+        </li>
+        <li>
+          <a class="edition-card" href="https://www.youtube.com/watch?v=vDW9tBYQ-zc" target="_blank" rel="noopener" aria-label="Assistir à 2ª edição no YouTube: Val Pinheiro, Foto Tendenciosa">
+            <span class="video-thumb"><img src="https://i.ytimg.com/vi/vDW9tBYQ-zc/maxresdefault.jpg" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/vDW9tBYQ-zc/hqdefault.jpg'" alt="Val Pinheiro cantando Foto Tendenciosa na segunda edição do Chama Play" loading="lazy" width="1280" height="720"><span class="play" aria-hidden="true"></span></span>
+            <span class="edition-meta"><span class="edition-n">2ª</span><span class="edition-name">Segunda edição</span></span>
+            <span class="edition-cover">Val Pinheiro · Foto Tendenciosa</span>
+          </a>
+        </li>
+        <li>
+          <a class="edition-card" href="https://www.youtube.com/watch?v=2e20epeNKyE" target="_blank" rel="noopener" aria-label="Assistir à 3ª edição no YouTube: Bárbara Lopes, Cara de Otária">
+            <span class="video-thumb"><img src="https://i.ytimg.com/vi/2e20epeNKyE/maxresdefault.jpg" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/2e20epeNKyE/hqdefault.jpg'" alt="Bárbara Lopes cantando Cara de Otária na terceira edição do Chama Play" loading="lazy" width="1280" height="720"><span class="play" aria-hidden="true"></span></span>
+            <span class="edition-meta"><span class="edition-n">3ª</span><span class="edition-name">Terceira edição</span></span>
+            <span class="edition-cover">Bárbara Lopes · Cara de Otária</span>
+          </a>
+        </li>
+        <li>
+          <a class="edition-card" href="https://www.youtube.com/watch?v=Qob09MtcfN8" target="_blank" rel="noopener" aria-label="Assistir à 4ª edição no YouTube: Brenno e Maya, Quatro Paredes">
+            <span class="video-thumb"><img src="https://i.ytimg.com/vi/Qob09MtcfN8/maxresdefault.jpg" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/Qob09MtcfN8/hqdefault.jpg'" alt="Brenno e Maya cantando Quatro Paredes na quarta edição do Chama Play" loading="lazy" width="1280" height="720"><span class="play" aria-hidden="true"></span></span>
+            <span class="edition-meta"><span class="edition-n">4ª</span><span class="edition-name">Quarta edição</span></span>
+            <span class="edition-cover">Brenno e Maya · Quatro Paredes</span>
+          </a>
+        </li>
+        <li>
+          <div class="edition-card edition-soon">
+            <span class="video-thumb"><img class="soon-mark" src="assets/chama-mark.png" alt="" width="753" height="900"><span class="soon-tag">Em breve</span></span>
+            <span class="edition-meta"><span class="edition-n">5ª</span><span class="edition-name">Quinta edição</span></span>
+            <span class="edition-cover">Gravada, em edição</span>
+          </div>
+        </li>
       </ol>
-      <p class="edition-more">Os melhores momentos de cada edição estão no <a href="https://www.instagram.com/chamaplay/" target="_blank" rel="noopener">Instagram</a> e no <a href="https://www.youtube.com/@chamaplaybr" target="_blank" rel="noopener">YouTube</a>.</p>
+      <p class="edition-more">Todas as apresentações de cada edição estão no <a href="https://www.instagram.com/chamaplay/" target="_blank" rel="noopener">Instagram</a> e no <a href="https://www.youtube.com/@chamaplaybr" target="_blank" rel="noopener">YouTube</a>.</p>
     </section>
 
     <!-- CHAMA NÓIS -->
@@ -161,8 +189,19 @@
           <p class="eyebrow">Novo selo</p>
           <h2 class="section-title" id="nois-title">Chama <em class="gold-text">Nóis.</em></h2>
         </div>
-        <p class="section-note">A nova label da Chama Play estreou no Villa Country, em São Paulo: um show com clima de resenha entre amigos, sertanejo e releituras de outros estilos, tudo girando em torno da faixa inédita "Chama Nóis".</p>
+        <p class="section-note">A nova label da Chama Play estreou no Villa Country, em São Paulo: um show com clima de resenha entre amigos, sertanejo e releituras de outros estilos, tudo girando em torno da faixa inédita "Chama Nóis". Integrantes: Léo &amp; Júnior, Pedro &amp; Gustavo e Bárbara Lopes.</p>
       </div>
+      <a class="video-feature" href="https://www.youtube.com/watch?v=7nG22fb4QH0" target="_blank" rel="noopener" aria-label="Assistir Chama Nóis no YouTube">
+        <span class="video-thumb">
+          <img src="https://i.ytimg.com/vi/7nG22fb4QH0/maxresdefault.jpg" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/7nG22fb4QH0/hqdefault.jpg'" alt="Léo e Júnior, Bárbara Lopes, Pedro e Gustavo cantando Chama Nóis" loading="lazy" width="1280" height="720">
+          <span class="play" aria-hidden="true"></span>
+        </span>
+        <span class="video-caption">
+          <span class="chapter-label">Primeiro single · no YouTube</span>
+          <span class="video-title">Chama Nóis</span>
+          <span class="video-artists">Léo &amp; Júnior, Bárbara Lopes, Pedro &amp; Gustavo</span>
+        </span>
+      </a>
       <div class="audience">
         <article>
           <span class="chapter-label">Raiz</span>
@@ -214,6 +253,6 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js" defer></script>
-  <script src="main.js?v=20261126a" defer></script>
+  <script src="main.js?v=20261126c" defer></script>
 </body>
 </html>
